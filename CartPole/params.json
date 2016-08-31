@@ -1,0 +1,6 @@
+{
+  "name": "Arcade",
+  "tagline": "",
+  "body": "# Arcade\r\n\r\n[Back to profile.](http://mgallow.github.io/)\r\n\r\n\r\nGithub.io: https://mgallow.github.io/Arcade/\r\n\r\nArcade is a collection of projects in which we utilize the latest research in reinforcement learning (policy gradients, deep q-learning) to allow computers to explore and learn various video games. Current video games include: Cart-Pole, Breakout, and Flappy Bird. This work is on-going and facilitated through the use of OpenAI's gym and the python deep learning library Keras.\r\n\r\n\r\n## Cart-Pole\r\n\r\n## Breakout\r\n\r\n## Flappy Bird\r\n\r\n\r\n\r\n\r\n[Back to profile.](http://mgallow.github.io/)\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
