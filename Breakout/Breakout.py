@@ -5,7 +5,7 @@ ENV_NAME = "Breakout-v0"
 
 
 loaded_model = None #"assets/Breakout-v0-scratch_500000.json"
-loaded_weights = None #"assets/CartPole-v0-scratch_500000.h5"
+loaded_weights = None #"assets/Breakout-v0-scratch_500000.h5"
 model_name = ENV_NAME + "-scratch_500000"
 if loaded_model is not None: model_name = loaded_model
 arch_name = model_name + ".json"
@@ -282,10 +282,14 @@ def test_model():
     while t < max_nb_steps and episode < nb_test_episodes:
         if Watch: env.render(mode = 'human')
 
-        #Get the prediction of the Q-function
-        q = model.predict(x)
-        #choose action with highest prediction of the Q-function
-        action = np.argmax(q)
+        if random.random() <= epsilon:
+            print("----------Random Action----------")
+            action = env.action_space.sample()
+        else:
+            #Get the prediction of the Q-function
+            q = model.predict(x)
+            #choose action with highest prediction of the Q-function
+            action = np.argmax(q)	
 
         #run the selected action and observed next state and reward
         x_t = x_t1
