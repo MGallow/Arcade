@@ -5,4 +5,4 @@ For a more complete write-up of this project please checkout my [github.io](http
 (in progress.)
 
 
-![](https://raw.githubusercontent.com/MGallow/Arcade/FlappyBird/flappy.gif)
+![](https://github.com/MGallow/Arcade/blob/master/FlappyBird/flappy.gif)
