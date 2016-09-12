@@ -1,12 +1,31 @@
-#CartPole
-
-For a more complete write-up of this project please checkout my [github.io](https://mgallow.github.io/Arcade/CartPole/).
-
-(in progress.)
+[Back to Arcade.](https://mgallow.github.io/Arcade/)
 
 
-![](https://github.com/MGallow/Arcade/blob/master/CartPole/cartpole.gif)
+# Cart-Pole
 
-![](https://github.com/MGallow/Arcade/blob/master/CartPole/cartpole500000.gif)
+## Introduction
 
-![](https://github.com/MGallow/Arcade/blob/master/CartPole/cartpole500000_overkill.gif)
+
+![](cartpole.gif)
+
+### Files:
+
+- blah
+- blah
+
+### Requirements
+
+**Software**:
+- Python 2.7, 3.5
+- Keras is available via pip or [Github](https://github.com/fchollet/keras)
+- blah
+
+![](cartpole500000.gif)
+
+![](cartpole500000_overkill.gif)
+
+
+## Acknowledgements
+
+
+[Back to Arcade.](https://mgallow.github.io/Arcade/)
