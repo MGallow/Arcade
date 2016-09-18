@@ -6,12 +6,12 @@ For a more complete write-up of the projects please checkout my [github.io](http
 
 ## [Cart-Pole](https://github.com/MGallow/Arcade/tree/master/CartPole)
 
-![](https://github.com/MGallow/Arcade/blob/master/CartPole/cartpole500000.gif)
+<img src="https://github.com/MGallow/Arcade/blob/master/CartPole/cartpole500000.gif" height="300">
 
 ## [Breakout](https://github.com/MGallow/Arcade/tree/master/Breakout)
 
-![](https://github.com/MGallow/Arcade/blob/master/Breakout/Breakout1000000.gif)
+<img src="https://github.com/MGallow/Arcade/blob/master/Breakout/Breakout1000000.gif" height="300">
 
 ## [Flappy Bird](https://github.com/MGallow/Arcade/tree/master/FlappyBird)
 
-![](https://github.com/MGallow/Arcade/blob/master/FlappyBird/flappy.gif)
+<img src="https://github.com/MGallow/Arcade/blob/master/FlappyBird/flappy.gif" height="300">
