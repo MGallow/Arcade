@@ -14,4 +14,4 @@ For a more complete write-up of the projects please checkout my [github.io](http
 
 ## [Flappy Bird](https://github.com/MGallow/Arcade/tree/master/FlappyBird)
 
-<img src="https://github.com/MGallow/Arcade/blob/master/FlappyBird/flappy.gif" height="300">
+<img src="https://github.com/MGallow/Arcade/blob/master/FlappyBird/flappy.gif" height="500">
