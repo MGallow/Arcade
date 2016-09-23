@@ -1,36 +1,33 @@
-'''Breakout-v0'''
+'''CartPole-v0'''
 
 '''Playing Cartpole-v0 using the deep-Q learning algorithm'''
 
 # which game are we playing from OpenAI's gym?
-ENV_NAME = "Breakout-v0"
+ENV_NAME = "CartPole-v0"
 
 
-loaded_model = "Breakout-v0-scratch_500000.json"
-loaded_weights = "Breakout-v0-scratch_5000000.h5"
-model_name = ENV_NAME + "-scratch_500000"
+# optional, load model and weights
+loaded_model = "CartPole-v0-scratch_500000.json"
+loaded_weights = "CartPole-v0-scratch_500000.h5"
+model_name = ENV_NAME + "-original_model"
 if loaded_model is not None:
     model_name = loaded_model
 arch_name = model_name + ".json"
 
 Internet = True  # connected to the internet (Slack)?
-Watch = True  # watch the training
+Watch = True  # watch the training?
 Train = False  # train or just play?
 Record = False  # create video from testing?
-observe = 10000  # how many steps to observe before training?
+observe = 100  # how many steps to observe before training?
 nb_steps = 500000  # number of steps
-nb_test_episodes = 5  # number of test episodes
+nb_test_episodes = 3  # number of test episodes
 max_nb_steps = 50000  # either nb_test_episodes or max_nb_steps -- whatever is shorter
 gamma = 0.99  # decay rate of past Observations
-explore = 500000  # frames over which to anneal epsilon
+explore = 5000  # frames over which to anneal epsilon
 final_epsilon = 0.01  # final value of epsilon
-initial_epsilon = 0.2  # starting value of epsilon
-memory_max = 50000  # number of previous transitions to remember
+initial_epsilon = 0.5  # starting value of epsilon
+memory_max = 500  # number of previous transitions to remember
 batch = 50  # size of minibatch
-
-# dimensions of input image
-img_rows = 84
-img_cols = 84
 
 
 print("Using Internet:", Internet)
@@ -45,11 +42,6 @@ print("locations successfully read.")
 
 
 #import dependencies
-import skimage as skimage
-from skimage import transform, color, exposure
-from skimage.transform import rotate
-from skimage.viewer import ImageViewer
-
 import os
 import sys
 import random
@@ -78,19 +70,10 @@ def save_architecture(archname, string):
     print("architecture saved as", archname)
 
 
-# preprocess the images
-def preprocess(color):
-    x = skimage.color.rgb2gray(color)
-    x = skimage.transform.resize(x, (img_rows, img_cols))
-    x = skimage.exposure.rescale_intensity(x, out_range=(0, 255))
-    x = x.reshape(1, x.shape[0], x.shape[1], 1)
-    return x
-
-
 # Get the environment and extract the number of actions
 env = gym.make(ENV_NAME)
-# np.random.seed(123)
-# env.seed(123)
+np.random.seed(123)
+env.seed(123)
 nb_actions = env.action_space.n
 
 
@@ -107,53 +90,18 @@ def construct_model():
             model.load_weights(weights_location)
 
     else:
+        # if we are not loading a model, create one
         model = Sequential()
-        model.add(ZeroPadding2D((1, 1),
-                                input_shape=(img_rows, img_cols, 1)))
-        model.add(Convolution2D(nb_filter=32,  # number of filters
-                                nb_row=3,  # number of rows in kernel
-                                nb_col=3,
-                                init='normal',
-                                border_mode='same',  # padded with zeroes
-                                W_regularizer=None,
-                                activity_regularizer=None,
-                                bias=True,
-                                name='conv1'))
+        model.add(Flatten(input_shape=(1,) +
+                          env.observation_space.shape))  # (1, 4)
+        model.add(Dense(16))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(3, 3),
-                               strides=(2, 2),
-                               border_mode='valid'))
-
-        model.add(ZeroPadding2D((1, 1)))
-        model.add(Convolution2D(32, 3, 3,
-                                init='normal',
-                                name='conv2'))
+        model.add(Dense(16))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(3, 3),
-                               strides=(2, 2)))
-
-        model.add(ZeroPadding2D((1, 1)))
-        model.add(Convolution2D(64, 3, 3,
-                                init='normal',
-                                name='conv3'))
+        model.add(Dense(16))
         model.add(Activation('relu'))
-        model.add(MaxPooling2D(pool_size=(3, 3),
-                               strides=(2, 2)))
-
-        model.add(Flatten())
-        model.add(Dense(output_dim=512,
-                        input_dim=True,
-                        init='normal',  # initialize the weights
-                        bias=True,
-                        W_regularizer=l2(0.01)
-                        ))
-        model.add(Activation('relu'))
-        model.add(Dropout(0.5))
-
-        model.add(Dense(output_dim=nb_actions,
-                        init='normal'))
+        model.add(Dense(nb_actions))
         model.add(Activation('linear'))
-
         json_string = model.to_json()
         save_architecture(arch_name, json_string)
     print("model constructed.")
@@ -170,48 +118,38 @@ def train_model():
     total_reward = 0
     rewards = []
     epsilon = initial_epsilon
-
-    x_t_colored = env.reset()
-    x_t = preprocess(x_t_colored)
-
-    action_t0 = env.action_space.sample()
-    x_t1_colored, reward, done, info = env.step(action_t0)
-    x_t1 = preprocess(x_t1_colored)
-    x = x_t1 - x_t
+    x_t = env.reset()
+    x_t = x_t.reshape(1, 1, x_t.shape[0])
 
     # train the model
     while t < nb_steps:
         if Watch:
             env.render(mode='human')
-
         if random.random() <= epsilon:
             print("----------Random Action----------")
             action = env.action_space.sample()
         else:
             # Get the prediction of the Q-function
-            q = model.predict(x)
+            q = model.predict(x_t)
             # choose action with highest prediction of the Q-function
             action = np.argmax(q)
 
         # run the selected action and observed next state and reward
-        x_t = x_t1
-        x_t1_colored, reward, done, info = env.step(action)
+        x_t1, reward, done, info = env.step(action)
+
+        x_t1 = x_t1.reshape(1, 1, x_t1.shape[0])
         total_reward += reward
 
-        x_t1 = preprocess(x_t1_colored)
-        x1 = x_t1 - x_t
-
         # store the transition in D
-        memory.append((x, action, reward, x1, done))
+        memory.append((x_t, action, reward, x_t1, done))
         if len(memory) > memory_max:
             memory.popleft()
+
+        x_t = x_t1
 
         # reduce epsilon gradually
         if epsilon > final_epsilon:
             epsilon -= (initial_epsilon - final_epsilon) / explore
-
-        # update values
-        x = x1
 
         if done:
 
@@ -226,10 +164,9 @@ def train_model():
                 # sample a minibatch to train on
                 minibatch = random.sample(memory, batch)
 
-                # 50, img_rows, img_cols, 1
                 inputs = np.zeros(
-                    (batch, x1.shape[1], x1.shape[2], x1.shape[3]))
-                targets = np.zeros((batch, nb_actions))  # 50, 6
+                    (batch, x_t1.shape[1], x_t1.shape[2]))  # 50, 1, 4
+                targets = np.zeros((batch, nb_actions))  # 50, 2
 
                 # Now we do the experience replay
                 for i in range(0, len(minibatch)):
@@ -257,25 +194,18 @@ def train_model():
 
             total_reward = 0
             episode += 1
-            x_t_colored = env.reset()
-            x_t = preprocess(x_t_colored)
-
-            action_t0 = env.action_space.sample()
-            x_t1_colored, reward, done, info = env.step(action_t0)
-            x_t1 = preprocess(x_t1_colored)
-            x = x_t1 - x_t
+            x_t = env.reset()
+            x_t = x_t.reshape(1, 1, x_t.shape[0])
 
             if t > observe:
                 status = "Training"
 
         print("TIMESTEP", t, "/ EPISODE", episode, "/ STATUS", status,
               "/ EPSILON", round(epsilon, 4), "/ ACTION", action, "/ REWARD", reward, "/ DONE", done)
-
-        # update values
         t = t + 1
 
     if Internet:
-        # send message to slack when finished
+        # send message to slack, signaling the end of training
         slck = os.path.join(slack_dir, "Slack.py")
         exec(open(slck).read())
         print("message sent to Slack")
@@ -288,41 +218,27 @@ def test_model():
     episode = 1
     status = "Testing"
     total_reward = 0
-    epsilon = initial_epsilon
     rewards = []
-
-    x_t_colored = env.reset()
-    x_t = preprocess(x_t_colored)
-
-    action_t0 = env.action_space.sample()
-    x_t1_colored, reward, done, info = env.step(action_t0)
-    x_t1 = preprocess(x_t1_colored)
-    x = x_t1 - x_t
+    x_t = env.reset()
+    x_t = x_t.reshape(1, 1, x_t.shape[0])
 
     # train the model
     while t < max_nb_steps and episode < nb_test_episodes:
         if Watch:
             env.render(mode='human')
 
-        if random.random() <= epsilon:
-            print("----------Random Action----------")
-            action = env.action_space.sample()
-        else:
-            # Get the prediction of the Q-function
-            q = model.predict(x)
-            # choose action with highest prediction of the Q-function
-            action = np.argmax(q)
+        # Get the prediction of the Q-function
+        q = model.predict(x_t)
+        # choose action with highest prediction of the Q-function
+        action = np.argmax(q)
 
         # run the selected action and observed next state and reward
-        x_t = x_t1
-        x_t1_colored, reward, done, info = env.step(action)
+        x_t1, reward, done, info = env.step(action)
+
+        x_t1 = x_t1.reshape(1, 1, x_t1.shape[0])
         total_reward += reward
 
-        x_t1 = preprocess(x_t1_colored)
-        x1 = x_t1 - x_t
-
-        # update values
-        x = x1
+        x_t = x_t1
 
         if done:
             rewards.append(total_reward)
@@ -332,18 +248,11 @@ def test_model():
 
             total_reward = 0
             episode += 1
-            x_t_colored = env.reset()
-            x_t = preprocess(x_t_colored)
-
-            action_t0 = env.action_space.sample()
-            x_t1_colored, reward, done, info = env.step(action_t0)
-            x_t1 = preprocess(x_t1_colored)
-            x = x_t1 - x_t
+            x_t = env.reset()
+            x_t = x_t.reshape(1, 1, x_t.shape[0])
 
         print("TIMESTEP", t, "/ EPISODE", episode, "/ STATUS", status,
               "/ ACTION", action, "/ REWARD", reward, "/ DONE", done)
-
-        # update values
         t = t + 1
 
 
