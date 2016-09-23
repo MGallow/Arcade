@@ -6,12 +6,14 @@ For a more complete write-up of the projects please checkout my [github.io](http
 
 ## [Cart-Pole](https://github.com/MGallow/Arcade/tree/master/CartPole)
 
-<img src="https://github.com/MGallow/Arcade/blob/master/CartPole/cartpole500000.gif" height="300">
+![](https://github.com/MGallow/Arcade/blob/master/CartPole/cartpole500000.gif)
 
 ## [Breakout](https://github.com/MGallow/Arcade/tree/master/Breakout)
 
-<img src="https://github.com/MGallow/Arcade/blob/master/Breakout/Breakout1000000.gif" height="300">
+![](https://github.com/MGallow/Arcade/blob/master/Breakout/Breakout1000000.gif)
 
 ## [Flappy Bird](https://github.com/MGallow/Arcade/tree/master/FlappyBird)
 
-<img src="https://github.com/MGallow/Arcade/blob/master/FlappyBird/flappy.gif" height="500">
+![](https://github.com/MGallow/Arcade/blob/master/FlappyBird/flappy.gif)
+
+(source: <https://yanpanlau.github.io/2016/07/10/FlappyBird-Keras.html>)
