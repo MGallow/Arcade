@@ -4,6 +4,8 @@ Arcade is a collection of projects in which we utilize the latest research in re
 
 For a more complete write-up of the projects please checkout my [github.io](https://mgallow.github.io/Arcade/).
 
+This project is in progress.
+
 ## [Cart-Pole](https://github.com/MGallow/Arcade/tree/master/CartPole)
 
 ![](https://github.com/MGallow/Arcade/blob/master/CartPole/cartpole500000.gif)
