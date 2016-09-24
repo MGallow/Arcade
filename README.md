@@ -19,3 +19,13 @@ This project is in progress.
 ![](https://github.com/MGallow/Arcade/blob/master/FlappyBird/flappy.gif)
 
 (source: <https://yanpanlau.github.io/2016/07/10/FlappyBird-Keras.html>)
+
+## Acknowledgements
+
+- Keras documentation: <https://keras.io>
+- <https://github.com/matthiasplappert/keras-rl>
+- <http://karpathy.github.io/2016/05/31/rl/>
+- <https://gym.openai.com>
+- <https://yanpanlau.github.io/2016/07/10/FlappyBird-Keras.html>
+- <https://github.com/yenchenlin/DeepLearningFlappyBird>
+- <https://github.com/sourabhv/FlapPyBird>
