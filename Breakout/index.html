@@ -41,14 +41,15 @@
             <h2>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
 
-            <p>In this tutorial we attempt create a program that learns how to play Atari's popular Breakout game. This project utilizes the latest in reinforcement learning (deep Q-learning) and the Keras deep learning library.</p>
+            <p>In this tutorial we attempt to create a computer program that learns how to play Atari's popular Breakout game. This project utilizes the latest in reinforcement learning (deep Q-learning) and the Keras deep learning library.</p>
 
             <p><img src="https://github.com/MGallow/Arcade/Breakout/raw/master/Breakout1000000.gif" alt=""></p>
 
             <h3>
 <a id="why-do-we-care" class="anchor" href="#why-do-we-care" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why do we care?</h3>
 
-            <p>Because</p>
+            <p>This sort of research has implications far greater than just video games. Developing systems that autonomously learn representations of raw data (in this case pixel values) is extremely powerful and is particularly useful in the field of robotoics
+                (self-driving cars), aviation, and practically any other field that is data-intensive. </p>
 
             <h2>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
@@ -61,7 +62,7 @@
                 <li>Python 2.7, 3.5</li>
                 <li>Keras - available via pip or <a href="https://github.com/fchollet/keras">Github</a>
                 </li>
-                <li>OpenAi<a href="https://gym.openai.com">gym</a>
+                <li>OpenAi's <a href="https://gym.openai.com">gym</a>
                 </li>
             </ul>
 
@@ -77,31 +78,10 @@
 
             <ul>
                 <li>
-                    <strong>train_data_dir</strong> = <em>file path to training data</em>
-                </li>
-                <li>
-                    <strong>validation_data_dir</strong> = <em>file path to validation data</em>
-                </li>
-                <li>
-                    <strong>test_data_dir</strong> = <em>file path to test data</em>
-                </li>
-                <li>
-                    <strong>preview_dir</strong> = <em>where to save the previewed images? (optional)</em>
-                </li>
-                <li>
                     <strong>runs_dir</strong> = <em>file path to saved model weights</em>
                 </li>
                 <li>
                     <strong>arch_dir</strong> = <em>file path to saved model architectures</em>
-                </li>
-                <li>
-                    <strong>train_bottleneck</strong> = <em>file path to generated training bottleneck features</em>
-                </li>
-                <li>
-                    <strong>validation_bottleneck</strong> = <em>file path to generated validation bottleneck features</em>
-                </li>
-                <li>
-                    <strong>plot_dir</strong> = <em>file path to saved plots</em>
                 </li>
             </ul>
 
