@@ -41,34 +41,13 @@
             <h2>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
 
-            <p>In this tutorial we attempt to create a computer program that learns how to play Cart-Pole. This project utilizes the latest in reinforcement learning (deep Q-learning) and the Keras deep learning library.</p>
+            <p>We attempt to create a computer program that learns how to play Atari's popular Breakout game. This project utilizes reinforcement learning (deep Q-learning) and the Keras deep learning library. For background on CNN's, check out this excellent
+        <a href="http://cs231n.github.io/convolutional-networks/">blog post</a> by <a href="http://cs.stanford.edu/people/karpathy/">Andrej Karpathy</a>. I would also recommend taking a look at this <a href="http://neuralnetworksanddeeplearning.com">tutorial</a>        by <a href="http://michaelnielsen.org">Michael Nielsen</a> for a general overview of neural networks. For deep Q-learning, checkout DeepMind's <a href="http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html">paper</a>.</p>
 
             <p><img src="../assets/cartpole.gif" height="250" alt=""></p>
 
             <p><img src="../assets/cartpole500000.gif" height="250" alt=""></p>
 
-            <h3>
-<a id="why-do-we-care" class="anchor" href="#why-do-we-care" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why do we care?</h3>
-
-            <p>This sort of research has implications far greater than just video games. Developing systems that autonomously learn representations of raw data (in this case pixel values) is extremely powerful and is particularly useful in the field of robotoics
-                (self-driving cars), aviation, and practically any other field that is data-intensive. </p>
-
-            <h2>
-<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
-
-            <p>This tutorial assumes basic knowledge of neural networks, specifically convolutional neural networks as well as the deep Q-learning algorithm. For background on CNN's, check out this excellent <a href="http://cs231n.github.io/convolutional-networks/">blog post</a>                by <a href="http://cs.stanford.edu/people/karpathy/">Andrej Karpathy</a>. I would also recommend taking a look at this <a href="http://neuralnetworksanddeeplearning.com">tutorial</a> by <a href="http://michaelnielsen.org">Michael Nielsen</a>                for a general overview of neural networks. For deep Q-learning, checkout DeepMind's <a href="http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html">paper</a>.</p>
-
-            <p><strong>Software</strong>:</p>
-
-            <ul>
-                <li>Python 2.7, 3.5</li>
-                <li>Keras - available via pip or <a href="https://github.com/fchollet/keras">Github</a>
-                </li>
-                <li>Optional, <a href="https://github.com/matthiasplappert/keras-rl">Keras-rl</a>
-                </li>
-                <li>OpenAi's <a href="https://gym.openai.com">gym</a>
-                </li>
-            </ul>
 
             <h3>
 <a id="files" class="anchor" href="#files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Files:</h3>
@@ -76,21 +55,6 @@
             <ul>
                 <li><a href="https://github.com/MGallow/Arcade/blob/master/CartPole/CartPole.py">CartPole.py</a></li>
                 <li><a href="https://github.com/MGallow/Arcade/blob/master/CartPole/train_dqn.py">train_dqn.py</a></li>
-            </ul>
-
-            <p>This project utilizes a <strong>"Locations.py"</strong> script (not included) that specifies the locations of various files/repositories on the local machine. Thus, you may need to make slight adjustments to the files in order for them to
-                run. Specifically, the following locations are defined (among others potentially):</p>
-
-            <ul>
-                <li>
-                    <strong>runs_dir</strong> = <em>file path to saved model weights</em>
-                </li>
-                <li>
-                    <strong>arch_dir</strong> = <em>file path to saved model architectures</em>
-                </li>
-                <li>
-                    <strong>video_dir</strong> = <em>file path to saved videos (see "train_dqn.py" script)</em>
-                </li>
             </ul>
 
             <p><img src="../assets/cartpole500000_overkill.gif" height="250" alt=""></p>
